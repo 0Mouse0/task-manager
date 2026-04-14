@@ -27,7 +27,25 @@ function App() {
       text,
       completed: false,
     };
-    setTasks([...tasks, newTask]);
+
+    fetch("http://localhost:3000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("TAsk added: ", data);
+      setTasks([...tasks, data]);
+    })
+    .catch((error) => {
+      console.error("Error adding task: ", error)
+    })
+
+
+    //setTasks([...tasks, newTask]);
   }
 
   function removeTask(id: number) {
