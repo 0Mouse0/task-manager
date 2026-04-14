@@ -1,0 +1,13 @@
+p.task-counter {
+    width: 100%;
+    max-width: 520px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: right;
+}
+
+p.task-counter span {
+    color: #4a90d9;
+    font-weight: 600;
+}
