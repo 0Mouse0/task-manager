@@ -7,6 +7,7 @@ import TaskCounter from "./components/TaskCounter";
 import { Task } from "./types/types";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+console.log("API_URL:", API_URL);
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
