@@ -6,17 +6,19 @@ import Footer from "./components/Footer";
 import TaskCounter from "./components/TaskCounter";
 import { Task } from "./types/types";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   
   useEffect(() => {
-    fetch("http://localhost:3000/tasks")
+    fetch(`${API_URL}/tasks`)
       .then((response) => response.json())
       .then((data) => {
         setTasks(data);
       })
       .catch((error) => {
-        console.error("Error fetching tasks: ", error )
+        console.error("Error fetching tasks: ", error);
       });
 
   },[]);
@@ -27,8 +29,7 @@ function App() {
       text,
       completed: false,
     };
-
-    fetch("http://localhost:3000/tasks", {
+    fetch(`${API_URL}/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,15 +38,12 @@ function App() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log("TAsk added: ", data);
+      console.log("Task added: ", data);
       setTasks([...tasks, data]);
     })
     .catch((error) => {
-      console.error("Error adding task: ", error)
-    })
-
-
-    //setTasks([...tasks, newTask]);
+      console.error("Error adding task: ", error);
+    });
   }
 
   function removeTask(id: number) {
