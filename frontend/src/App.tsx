@@ -11,18 +11,17 @@ console.log("API_URL:", API_URL);
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  
-  useEffect(() => {
+
+  function fetchTasks() {
     fetch(`${API_URL}/tasks`)
       .then((response) => response.json())
-      .then((data) => {
-        setTasks(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching tasks: ", error);
-      });
+      .then((data) => setTasks(data))
+      .catch((error) => console.error("Error fetching tasks: ", error));
+  }
 
-  },[]);
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   function addTask(text: string) {
     const newTask: Task = {
@@ -32,29 +31,27 @@ function App() {
     };
     fetch(`${API_URL}/tasks`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTask)
     })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Task added: ", data);
-      setTasks([...tasks, data]);
-    })
-    .catch((error) => {
-      console.error("Error adding task: ", error);
-    });
+    .then(() => fetchTasks())
+    .catch((error) => console.error("Error adding task: ", error));
   }
 
   function removeTask(id: number) {
-    setTasks(tasks.filter(task => task.id !== id));
+    fetch(`${API_URL}/tasks/${id}`, {
+      method: "DELETE",
+    })
+    .then(() => fetchTasks())
+    .catch((error) => console.error("Error removing task: ", error));
   }
 
   function toggleTask(id: number) {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
+    fetch(`${API_URL}/tasks/${id}`, {
+      method: "PUT",
+    })
+    .then(() => fetchTasks())
+    .catch((error) => console.error("Error toggling task: ", error));
   }
 
   return (

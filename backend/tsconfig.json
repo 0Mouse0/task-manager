@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "node16",
     "target": "esnext",
     "types": ["node"],
     "sourceMap": true,
@@ -15,6 +14,8 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "outDir": "./dist",
-    "rootDir": "./src"
-  }
+    "rootDir": "./src",
+    "ignoreDeprecations": "5.0"
+  },
+  "include": ["src/**/*"]
 }

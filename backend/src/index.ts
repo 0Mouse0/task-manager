@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use(express.json());
 
-// Borrar para usar base de datos
+// TODO: Borrar para usar base de datos
 let tasks = [
     { id: 1, text: "Study Express", completed: false }, 
     { id: 2, text: "Build backend", completed: true }
@@ -42,6 +42,21 @@ app.post("/tasks", (req: any, res: any) => {
     console.log("Se actualizó la lista de tareas: ", tasks);
 
     res.json(newTask);
+});
+
+app.delete("/tasks/:id", (req: Request, res: Response) => {
+    const id = parseInt(String(req.params["id"]));
+    tasks = tasks.filter(task => task.id !== id);
+    res.json({ message: "Task deleted successfully" });
+});
+
+app.put("/tasks/:id", (req: Request, res: Response) => {
+    const id = parseInt(String(req.params["id"]));
+    tasks = tasks.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+    );
+    const updatedTask = tasks.find(task => task.id === id);
+    res.json(updatedTask);
 });
 
 app.listen(PORT, () => {

@@ -14,3 +14,13 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Funcionamiento
+
+La aplicación localmente corre usando el comando `npm run dev` en ambos casos del front y backend.
+
+## Deployment
+
+- La aplicación Frontend corre en Vercel. Para ver la última URL usada, ver en `https://vercel.com/0mouse0s-projects/task-manager`.
+- El backend corre por medio de Render en la URL: `https://task-manager-mk75.onrender.com/`.
+- La base de datos corre en la nube con `Neon`, de momento falta implementar esto.
