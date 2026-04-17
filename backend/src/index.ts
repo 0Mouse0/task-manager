@@ -3,6 +3,9 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import jwt from 'jsonwebtoken';
+
+const SECRET_KEY = "mi_clave_secreta";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -80,4 +83,41 @@ app.put("/tasks/:id", async (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+});
+
+// TODO: This section is reserve for the authentication of users
+
+// ! Login route for demonstration purposes.
+// ! For testing purposes, the username is "admin" and the password is "password"
+
+app.post("/login", (req: Request, res: Response) => {
+    const { username, password } = req.body;
+    // ! Replace this with actual user authentication logic when in prod
+    if (username === "admin" && password === "password") {
+        const token = jwt.sign({ username: username }, SECRET_KEY, { expiresIn: "1h" });
+        res.json({ token });
+    } else {
+        res.status(401).json({ error: "Invalid credentials" });
+    }
+});
+
+const verifyToken = (req: Request, res: Response, next: Function) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+        res.status(401).json({ error: "Token no proporcionado" });
+        return;
+    }
+
+    try {
+        jwt.verify(token, SECRET_KEY);
+        next();
+    } catch (error) {
+        res.status(403).json({ error: "Token inválido" });
+    }
+};
+
+app.get("/private", verifyToken, (req, res) => {
+    res.json({ message: "Acceso permitido" });
 });
