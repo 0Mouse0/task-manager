@@ -162,8 +162,7 @@ npx prisma generate
 | POST | `/login` | Gets a token that expires after an hour only when using the correct body structure |
 | GET | `/private` | Allows or denies entry depending on the token provided in the request |
 
-[!IMPORTANT]
-**The correct body structure for `/login` endpoint:**
+**⚠️ The correct body structure for `/login` endpoint:**
 
 ```JSON
 {
@@ -171,7 +170,6 @@ npx prisma generate
     "password": "password"
 }
 ```
-
 
 ### Example request body for POST `/tasks`
 
