@@ -159,10 +159,11 @@ npx prisma generate
 | POST | `/tasks` | Create a new task |
 | DELETE | `/tasks/:id` | Delete a task by ID |
 | PUT | `/tasks/:id` | Toggle task completed status |
-| POST | `/login` | Gets a token that expires after an hour only when using the correct body structure [^1] |
+| POST | `/login` | Gets a token that expires after an hour only when using the correct body structure |
 | GET | `/private` | Allows or denies entry depending on the token provided in the request |
 
-[^1] The correct body structure:
+[!IMPORTANT]
+**The correct body structure for `/login` endpoint:**
 
 ```JSON
 {
