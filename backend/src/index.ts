@@ -25,36 +25,57 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/tasks", async (req: Request, res: Response) => {
-    const tasks = await prisma.task.findMany({
+    try {
+        const tasks = await prisma.task.findMany({
         orderBy: { id: "asc" }
-    });
-    res.json(tasks);
+        });
+        res.json(tasks);
+    } catch (error) {
+        console.error("Error in fetching tasks: ", error);
+
+    }
 });
 
 app.post("/tasks", async (req: Request, res: Response) => {
-    const newTask = await prisma.task.create({
-        data: {
-            text: req.body.text,
-            completed: req.body.completed ?? false,
-        }
-    });
-    res.json(newTask);
+    try {
+        const newTask = await prisma.task.create({
+
+            data: {
+                text: req.body.text,
+                completed: req.body.completed ?? false,
+            }
+        });
+        res.json(newTask);
+    } catch (error) {
+        console.error("Error in creating task: ", error);
+        res.status(500).json({ error: "Error creating task" });
+    }
 });
 
 app.delete("/tasks/:id", async (req: Request, res: Response) => {
-    const id = parseInt(String(req.params["id"]));
-    await prisma.task.delete({ where: { id } });
-    res.json({ message: "Task deleted successfully" });
+    try{
+        const id = parseInt(String(req.params["id"]));
+        await prisma.task.delete({ where: { id } });
+        res.json({ message: "Task deleted successfully" });
+    } catch (error) {
+        console.error("Error in deleting the task: ", error);
+        res.status(500).json({ error: "Error deleting task" });
+    }
 });
 
 app.put("/tasks/:id", async (req: Request, res: Response) => {
-    const id = parseInt(String(req.params["id"]));
-    const task = await prisma.task.findUnique({ where: { id } });
-    const updatedTask = await prisma.task.update({
-        where: { id },
-        data: { completed: !task?.completed }
-    });
-    res.json(updatedTask);
+    try {
+        const id = parseInt(String(req.params["id"]));
+        const task = await prisma.task.findUnique({ where: { id } });
+        const updatedTask = await prisma.task.update({
+            where: { id },
+            data: { completed: !task?.completed }
+        });
+        res.json(updatedTask);
+    } catch (error) {
+        console.error("Error in toggling the completion of the task: ", error);
+        res.status(500).json({ error: "Error toggling task completion" });
+    }
 });
 
 app.listen(PORT, () => {
