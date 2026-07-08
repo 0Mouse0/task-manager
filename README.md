@@ -4,6 +4,10 @@ A full-stack task management application built with React, TypeScript, Node.js, 
 
 ---
 
+<!-- BADGE_CI -->
+
+---
+
 ## Tech Stack
 
 - **Frontend:** React + TypeScript + Vite
