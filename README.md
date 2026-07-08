@@ -4,6 +4,8 @@ A full-stack task management application built with React, TypeScript, Node.js, 
 
 ---
 
+## Badge de CI
+
 <!-- BADGE_CI -->
 
 ---
