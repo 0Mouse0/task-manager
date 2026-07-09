@@ -201,6 +201,7 @@ npx prisma generate
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/taskmanager` |
+| `JWT_SECRET` | JWT Secret Key | `tu_clave_aquí` |
 
 ---
 
