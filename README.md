@@ -6,7 +6,7 @@ A full-stack task management application built with React, TypeScript, Node.js, 
 
 ## Badge de CI
 
-<!-- BADGE_CI -->
+![CI](https://github.com/0Mouse0/task-manager/actions/workflows/ci.yml/badge.svg)
 
 ---
 
