@@ -1,11 +1,14 @@
 import "dotenv/config";
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import jwt from 'jsonwebtoken';
 
-const SECRET_KEY = "mi_clave_secreta";
+const SECRET_KEY = process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+    throw new Error("JWT_SECRET environment variable is required");
+}
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -101,7 +104,7 @@ app.post("/login", (req: Request, res: Response) => {
     }
 });
 
-const verifyToken = (req: Request, res: Response, next: Function) => {
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -114,6 +117,7 @@ const verifyToken = (req: Request, res: Response, next: Function) => {
         jwt.verify(token, SECRET_KEY);
         next();
     } catch (error) {
+        console.error("Error verificando token: ", error);
         res.status(403).json({ error: "Token inválido" });
     }
 };
