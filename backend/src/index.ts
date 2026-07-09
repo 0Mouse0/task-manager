@@ -5,6 +5,9 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import jwt from 'jsonwebtoken';
 
+// ! Actividad de laboratorio
+const debugFlag = true;
+
 const SECRET_KEY = process.env.JWT_SECRET;
 if (!SECRET_KEY) {
     throw new Error("JWT_SECRET environment variable is required");
