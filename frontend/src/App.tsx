@@ -23,6 +23,7 @@ function App() {
     fetchTasks();
   }, []);
 
+  // Función addTask se encarga de agregar una nueva tarea al backend y actualizar la lista de tareas en el estado.
   function addTask(text: string) {
     const newTask: Task = {
       id: Date.now(),
