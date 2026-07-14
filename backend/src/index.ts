@@ -44,6 +44,14 @@ app.get("/tasks", async (req: Request, res: Response) => {
 
 app.post("/tasks", async (req: Request, res: Response) => {
     try {
+        const texto = req.body.text;
+
+        // Validación: rechaza vacío o solo espacios
+        if (!texto || !texto.trim()) {
+            res.status(400).json({ error: "El título de la tarea no puede estar vacío" });
+            return;
+        }
+
         const newTask = await prisma.task.create({
 
             data: {
@@ -84,9 +92,11 @@ app.put("/tasks/:id", async (req: Request, res: Response) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
 
 // TODO: This section is reserve for the authentication of users
 
@@ -125,3 +135,5 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 app.get("/private", verifyToken, (req, res) => {
     res.json({ message: "Acceso permitido" });
 });
+
+export default app;
