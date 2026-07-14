@@ -63,6 +63,8 @@ jobs:
   e2e:
     name: Pruebas E2E
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "postgresql://user:password@localhost:5432/dummy"
     services:
       postgres:
         image: postgres:16
