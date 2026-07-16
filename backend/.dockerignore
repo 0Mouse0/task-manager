@@ -1,0 +1,13 @@
+node_modules
+.env
+npm-debug.log
+.git
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+prisma/generated
+
+# Editores / IDEs
+.vscode/*
+!.vscode/extensions.json

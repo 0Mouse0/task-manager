@@ -69,6 +69,36 @@ task-manager/
 
 ---
 
+## Quick Start with Docker (Recommended)
+
+The fastest way to run this project locally.
+
+### Docker Prerequisites
+
+- Docker and Docker Compose installed
+
+### Steps
+
+1. Clone the repo
+2. Copy the environment file examples:
+   cp backend/.env.example backend/.env
+   cp frontend/.env.example frontend/.env
+3. Build and start all services:
+   docker compose up --build
+4. In another terminal, run migrations (first time only):
+   docker compose exec backend npx prisma migrate deploy
+5. Open:
+   - Frontend: <http://localhost:5173>
+   - Backend: <http://localhost:3000>
+
+---
+
+## Manual Setup (without Docker)
+
+If you prefer to run the project without Docker, follow the steps below.
+
+---
+
 ## Frontend Setup
 
 ```bash
