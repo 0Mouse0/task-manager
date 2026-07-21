@@ -136,4 +136,8 @@ app.get("/private", verifyToken, (req, res) => {
     res.json({ message: "Acceso permitido" });
 });
 
+app.get("/health", (req: Request, res: Response) => {
+    res.status(200).send("Backend is healthy!");
+});
+
 export default app;
