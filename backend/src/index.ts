@@ -93,6 +93,7 @@ app.put("/tasks/:id", async (req: Request, res: Response) => {
 });
 
 if (process.env.NODE_ENV !== "test") {
+    throw new Error("fallo simulado");
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
