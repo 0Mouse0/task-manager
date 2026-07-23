@@ -7,7 +7,7 @@ type TaskCardProps = {
     toggleTask: (id: number) => void;
 };
 
-/* function TaskCard({ task, removeTask, toggleTask }: TaskCardProps) {
+function TaskCard({ task, removeTask, toggleTask }: TaskCardProps) {
     return (
         <li className={`task-card ${task.completed ? "completed" : ""}`}>
         <input
@@ -19,12 +19,12 @@ type TaskCardProps = {
         <button onClick={() => removeTask(task.id)}>Eliminar</button>
         </li>
     );
-} */
+}
 
 
 // TODO: Presentación final, se reorganiza cómo se presentan las cards
 
-function TaskCard({ task, removeTask, toggleTask }: TaskCardProps) {
+/* function TaskCard({ task, removeTask, toggleTask }: TaskCardProps) {
     return (
         <li className={`task-card ${task.completed ? "completed" : ""}`}>
         <button onClick={() => removeTask(task.id)}>Eliminar</button>
@@ -37,6 +37,6 @@ function TaskCard({ task, removeTask, toggleTask }: TaskCardProps) {
 
         </li>
     );
-}
+} */
 
 export default TaskCard;
